@@ -14,13 +14,13 @@ class PostController extends Controller
         $data =[
             'posts' => $posts
         ];
-
+        
         return view('guests.posts.index', $data);
     }
 
-    public function show(){
+    public function show($slug){
 
-        $this_post = Post::findOrFail($id);
+        $this_post = Post::where('slug','=',$slug)->first();
         
         $data = [
             'post' => $this_post
