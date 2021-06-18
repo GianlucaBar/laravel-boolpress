@@ -10942,3 +10942,22 @@ a.text-dark:focus {
   }
 }
 
+.posts-container {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.post-card {
+  width: calc(100% / 4 - 20px);
+  margin: 10px;
+  background-color: #c7c7c7;
+  box-shadow: 5px 5px 14px -1px rgba(0, 0, 0, 0.77);
+  padding: 10px;
+}
+
+.post-card h2 {
+  color: #3490dc;
+}
+
