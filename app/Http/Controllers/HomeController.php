@@ -30,26 +30,4 @@ class HomeController extends Controller
         return view('guests.home');
     }
 
-    public function postlist(){
-
-        $posts = Post::all();
-
-        $data =[
-            'posts' => $posts
-        ];
-
-        return view('guests.postlist', $data);
-    }
-
-    public function showpost(){
-
-        $this_post = Post::findOrFail($id);
-        
-        $data = [
-            'post' => $this_post
-        ];
-
-        return view('guest.showpost', $data);
-    }
-
 }

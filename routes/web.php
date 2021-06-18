@@ -17,7 +17,7 @@ Auth::routes();
 
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/postlist', 'HomeController@postlist')->name('postlist');
+Route::get('/blog', 'PostController@index')->name('blog');
 
 Route::prefix('admin')
     ->namespace('Admin')
