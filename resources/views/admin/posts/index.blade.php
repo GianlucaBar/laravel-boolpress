@@ -12,6 +12,8 @@
                 <p>{{ $post->content }}</p>
 
                 <a class="btn btn-primary" href="{{route('admin.posts.show',['post' => $post->id])}}">Show post</a>
+
+                <a class="btn btn-success" href="{{route('admin.posts.edit',['post' => $post->id])}}">Edit post</a>
             </div>
             @endforeach
 

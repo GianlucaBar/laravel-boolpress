@@ -42,7 +42,14 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        // validazione 
+        $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required|max:255'
+
+        ]);
+
         $new_post_data = $request->all();
 
         // creo il nuovo slug 
@@ -65,9 +72,10 @@ class PostController extends Controller
             // se trova anche ques'ultimo rientra nel ciclo 
         }
 
+        $new_post_data['slug'] = $new_slug;
+
         $new_post = new Post();
 
-        $new_post->slug = $new_slug;
         $new_post->fill($new_post_data);
 
         $new_post->save();
@@ -100,7 +108,13 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $this_post = Post::findOrFail($id);
+
+        $data = [
+            'post' => $this_post
+        ];
+
+        return view('admin.posts.edit', $data);
     }
 
     /**
@@ -111,8 +125,46 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {   
+        // validazione
+        $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required|max:255'
+        ]);
+
+        $mod_post_data = $request->all();
+
+        $mod_post = Post::findOrFail($id);
+
+        if($mod_post_data['title'] != $mod_post->title){
+            // creo il nuovo slug 
+            $new_slug = Str::Slug($mod_post_data['title'], '-');
+            $base_slug = $new_slug;
+
+            // preparo il ciclo inizializzando la condizione e il contatore 
+            $same_slug_found = Post::where('slug', '=', $new_slug)->first();
+            $counter = 1;
+
+            // ricerca slug identici ed eventuale modifica 
+            while($same_slug_found){
+                // aggiungo numero counter allo slug trovato 
+                $new_slug = $base_slug . '-' . $counter;
+
+                $counter++;
+
+                // verifico che quest'ultima modifica abbia generato uno slug univoco 
+                $same_slug_found = Post::where('slug', '=', $new_slug)->first();
+                // se trova anche ques'ultimo rientra nel ciclo 
+            }
+
+            $mod_post_data['slug'] = $new_slug;
+        }
+
+        $mod_post->update($mod_post_data);
+
+        $mod_post->save();
+
+        return redirect()->route('admin.posts.show', ['post' => $mod_post->id]);
     }
 
     /**
