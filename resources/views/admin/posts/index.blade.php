@@ -14,6 +14,17 @@
                 <a class="btn btn-primary" href="{{route('admin.posts.show',['post' => $post->id])}}">Show post</a>
 
                 <a class="btn btn-success" href="{{route('admin.posts.edit',['post' => $post->id])}}">Edit post</a>
+
+                
+                <form action="{{ route('admin.posts.destroy', [
+                    'post' => $post->id
+                ]) }} " method="post">
+                
+                @csrf
+                @method('DELETE')
+    
+                <input type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger" value="elimina">
+                </form>
             </div>
             @endforeach
 
