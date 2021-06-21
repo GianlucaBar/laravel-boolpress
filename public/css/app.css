@@ -10961,3 +10961,13 @@ a.text-dark:focus {
   color: #3490dc;
 }
 
+.post-title {
+  color: #3490dc;
+}
+
+.blog-post {
+  background-color: #c7c7c7;
+  border-radius: 5px;
+  padding: 10px;
+}
+

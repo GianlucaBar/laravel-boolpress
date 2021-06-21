@@ -11,7 +11,7 @@
 
                 <p>{{ $post->content }}</p>
 
-                <a class="btn btn-primary" href="{{route('showpost',['slug' => $post->slug])}}">Show post</a>
+                <a class="btn btn-primary" href="{{route('admin.posts.show',['post' => $post->id])}}">Show post</a>
             </div>
             @endforeach
 
