@@ -33,7 +33,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="">
+                            <a class="nav-link" href="{{ route('categories') }}">Categorie ricette</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
