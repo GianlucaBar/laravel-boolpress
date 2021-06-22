@@ -44,11 +44,7 @@ class PostController extends Controller
     public function store(Request $request)
     {   
         // validazione 
-        $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required|max:255'
-
-        ]);
+        $request->validate($this->validation());
 
         $new_post_data = $request->all();
 
@@ -127,10 +123,7 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {   
         // validazione
-        $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required|max:255'
-        ]);
+        $request->validate($this->validation());
 
         $mod_post_data = $request->all();
 
@@ -180,5 +173,15 @@ class PostController extends Controller
         $this_post->delete();
 
         return redirect()->route('admin.posts.index');
+    }
+
+    private function validation(){
+        {
+            return 
+                [
+                    'title' => 'required|max:100',
+                    'content' => 'required'
+                ];
+        }
     }
 }

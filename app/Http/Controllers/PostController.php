@@ -24,7 +24,7 @@ class PostController extends Controller
 
         if(!$this_post){
             abort('404');
-        }
+        };
         
         $data = [
             'post' => $this_post
