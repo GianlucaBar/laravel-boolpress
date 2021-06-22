@@ -3,6 +3,9 @@
 @section('content')
     <div class="container">
         <section class="blog-post">
+            @if($post_category)
+            <h4>{{ $post_category->name }}</h4>
+            @endif
             <h1 class="post-title">{{ ucfirst($post->title) }}</h1>
             <p>{{ $post->content }}</p>
         </section>
