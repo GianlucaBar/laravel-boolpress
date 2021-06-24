@@ -44,7 +44,13 @@
 
             @foreach ($tags as $tag)
             <div class="form-check">
-                <input class="form-check-input" name="tags[]" type="checkbox" value="{{ $tag->id }}" id="Tag-{{ $tag->id }}">
+
+                @if ($errors->any())
+                    <input class="form-check-input" name="tags[]" type="checkbox" value="{{ $tag->id }}" id="Tag-{{ $tag->id }}" {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
+                @else
+                    <input class="form-check-input" name="tags[]" type="checkbox" value="{{ $tag->id }}" id="Tag-{{ $tag->id }}" {{ $post->tags->contains($tag->id) ? 'checked' : '' }}>
+                @endif
+                
                 <label class="form-check-label" for="Tag-{{ $tag->id }}">
                     {{$tag->name}}
                 </label>
