@@ -95,10 +95,11 @@ class PostController extends Controller
     public function show($id)
     {
         $this_post = Post::findOrFail($id);
-
+        $post_tags = $this_post->tags;
         $data = [
             'post' => $this_post,
-            'post_category' => $this_post->category
+            'post_category' => $this_post->category,
+            'post_tags' => $post_tags
         ];
 
         return view('admin.posts.show', $data);

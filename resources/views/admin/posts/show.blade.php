@@ -13,6 +13,13 @@
             <div> <strong>Slug:</strong> {{ $post->slug }}</div>
 
             <p>{{ $post->content }}</p>
+
+            <div>
+                <strong>Tags:</strong> 
+                @foreach ($post_tags as $tag)
+                    {{ $tag->name }}{{ $loop->last ? '' : ', ' }}
+                @endforeach
+            </div>
         </div>
     </div>
 @endsection
