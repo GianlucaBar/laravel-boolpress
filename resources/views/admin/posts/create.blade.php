@@ -38,6 +38,19 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <h5>Tags</h5>
+
+            @foreach ($tags as $tag)
+            <div class="form-check">
+                <input class="form-check-input" name="tags[]" type="checkbox" value="{{ $tag->id }}" id="Tag-{{ $tag->id }}" {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
+                <label class="form-check-label" for="Tag-{{ $tag->id }}">
+                    {{$tag->name}}
+                </label>
+            </div> 
+            @endforeach
+        </div>
+
         <input type="submit" class="btn btn-primary" value="Invia">
     </form>
 </div>

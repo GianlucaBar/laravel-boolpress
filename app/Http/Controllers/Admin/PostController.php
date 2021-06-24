@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Post;
 use App\Category;
+use App\Tag;
 
 class PostController extends Controller
 {
@@ -34,9 +35,11 @@ class PostController extends Controller
     public function create()
     {   
         $categories = Category::all();
+        $tags = Tag::All();
 
         $data = [
-            'categories' => $categories
+            'categories' => $categories,
+            'tags' => $tags
         ];
 
         return view('admin.posts.create', $data);
@@ -83,6 +86,11 @@ class PostController extends Controller
 
         $new_post->save();
 
+        //  tags 
+        if(isset($new_post_data['tags'])){
+            $new_post->tags()->sync($new_post_data['tags']);
+        }
+
         return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
     }
 
@@ -115,10 +123,12 @@ class PostController extends Controller
     {
         $this_post = Post::findOrFail($id);
         $categories = Category::all();
+        $tags = Tag::All();
 
         $data = [
             'post' => $this_post,
-            'categories' => $categories
+            'categories' => $categories,
+            'tags' => $tags
         ];
 
         return view('admin.posts.edit', $data);
@@ -168,6 +178,13 @@ class PostController extends Controller
 
         $mod_post->save();
 
+        //  tags 
+        if(isset($mod_post_data['tags'])){
+            $mod_post->tags()->sync($mod_post_data['tags']);
+        } else{
+            $mod_post->tags()->sync([]);
+        }
+
         return redirect()->route('admin.posts.show', ['post' => $mod_post->id]);
     }
 
@@ -192,7 +209,8 @@ class PostController extends Controller
                 [
                     'title' => 'required|max:100',
                     'content' => 'required',
-                    'category_id' => 'nullable|exists:categories,id'
+                    'category_id' => 'nullable|exists:categories,id',
+                    'tags' => 'nullable|exists:tags,id'
                 ];
         }
     }
