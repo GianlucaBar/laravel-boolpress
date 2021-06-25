@@ -24,6 +24,9 @@ Route::get('/blog/{slug}', 'PostController@show')->name('showpost');
 Route::get('/categories', 'CategoryController@index')->name('categories');
 Route::get('/categories/{slug}', 'CategoryController@show')->name('category-page');
 
+// post visualizzati tramite vue e api 
+Route::get('/vue-posts', 'PostController@vuePosts')->name('vue-posts');
+
 Route::prefix('admin')
     ->namespace('Admin')
     ->name('admin.')
