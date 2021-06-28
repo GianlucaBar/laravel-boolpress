@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 use App\Post;
 use App\Category;
 use App\Tag;
+use App\Mail\NewPostNotification;
 
 class PostController extends Controller
 {
@@ -103,6 +105,9 @@ class PostController extends Controller
             $new_post->tags()->sync($new_post_data['tags']);
         }
 
+        // invio mail all'admin 
+        Mail::to('gianluca@email.com')->send(new NewPostNotification($new_post));
+        
         return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
     }
 
