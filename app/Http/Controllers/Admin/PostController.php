@@ -92,6 +92,7 @@ class PostController extends Controller
                 $new_post_data['cover'] = $new_img_path;
             }
         }
+
         $new_post = new Post();
         $new_post->fill($new_post_data);
 
@@ -185,6 +186,17 @@ class PostController extends Controller
             $mod_post_data['slug'] = $new_slug;
         }
 
+        // se viene caricata un'immagine, la salvo in storage 
+        // e aggiungo il risultato di Storage::put() in $new_post_data 
+        if (isset($mod_post_data['cover-image'])) {
+            
+            $new_img_path = Storage::put('post_covers', $mod_post_data['cover-image']);
+            
+            if($new_img_path){
+                $mod_post_data['cover'] = $new_img_path;
+            }
+        }
+
         $mod_post->update($mod_post_data);
 
         $mod_post->save();
@@ -222,7 +234,8 @@ class PostController extends Controller
                     'title' => 'required|max:100',
                     'content' => 'required',
                     'category_id' => 'nullable|exists:categories,id',
-                    'tags' => 'nullable|exists:tags,id'
+                    'tags' => 'nullable|exists:tags,id',
+                    'cover-image' => 'nullable'
                 ];
         }
     }
