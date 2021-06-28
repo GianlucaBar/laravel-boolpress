@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use App\Post;
 use App\Category;
 use App\Tag;
@@ -80,8 +81,18 @@ class PostController extends Controller
 
         $new_post_data['slug'] = $new_slug;
 
+        
+        // se viene caricata un'immagine, la salvo in storage 
+        // e aggiungo il risultato di Storage::put() in $new_post_data 
+        if (isset($new_post_data['cover-image'])) {
+            
+            $new_img_path = Storage::put('post_covers', $new_post_data['cover-image']);
+            
+            if($new_img_path){
+                $new_post_data['cover'] = $new_img_path;
+            }
+        }
         $new_post = new Post();
-
         $new_post->fill($new_post_data);
 
         $new_post->save();

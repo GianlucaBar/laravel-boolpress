@@ -10,6 +10,9 @@
             
             <h1>{{ ucfirst( $post->title ) }}</h1>
 
+            <div class="cover-image">
+                <img src="{{ asset('storage/' . $post->cover) }}">
+            </div>
             <div> <strong>Slug:</strong> {{ $post->slug }}</div>
 
             <p>{{ $post->content }}</p>

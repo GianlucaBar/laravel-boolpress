@@ -10942,6 +10942,14 @@ a.text-dark:focus {
   }
 }
 
+img {
+  width: 100%;
+}
+
+.cover-image {
+  width: 300px;
+}
+
 .posts-container {
   width: 80%;
   margin: auto;
